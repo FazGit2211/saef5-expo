@@ -1,9 +1,11 @@
-import { Text } from "react-native";
+import AppBar from "../components/appBars/AppBar";
+import Main from "../components/cards/Main";
 
 export default function Index() {
     return (
         <>
-            <Text>Hola</Text>
+            <AppBar />
+            <Main />
         </>
     )
 }
