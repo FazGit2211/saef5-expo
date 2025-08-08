@@ -4,7 +4,9 @@ import useDialog from "../../hooks/useDialog";
 import useModal from "../../hooks/useModal";
 import PlayerContext from "../../contexts/PlayerContext";
 import { useRouter } from "expo-router";
-import { List } from "react-native-paper";
+import { Button, List } from "react-native-paper";
+import DeletePlayerDialog from "../dialogs/DeletePlayerDialog";
+import ModalEditPlayer from "../modals/ModalEditPlayer";
 
 export default function ListPlayer() {
     //propiedades e método para utilizar los modales
@@ -36,12 +38,12 @@ export default function ListPlayer() {
     };
     return (
         <>
-            {/*<List>
-                {players.map((elem, index) => (<ListItem key={elem.name}><People /> {elem.name} <Button variant="contained" onClick={() => handleDeletedItem(index)}><Delete /></Button> <Button variant="contained" onClick={() => handleSelectEdit(elem, index)}><Edit /></Button> </ListItem>))}
-                <Button variant="contained" onClick={handleConfirmBtn}>CONFIRMAR JUGADORES</Button>
-            </List>*/}
-            {/*modalPlayer ? <ModalEditPlayer openModal={modalPlayer} closeModal={closeModalPlayer} dataEdit={editPlayer} indexPlayer={indexPlayer} /> : null*/}
-            {/*deletePlayer ? <DeletePlayerDialog openDialog={deletePlayer} indexDelete={indexPlayer} closeDialog={closeDeletePlayer} /> : null*/}
+            <List.Accordion title="Players">
+                {players.map((elem, index) => (<List.Item key={elem.name} title={elem.name} onPress={() => handleSelectEdit(elem, index)} />))}
+                <Button mode="contained" onPress={handleConfirmBtn}>CONFIRMAR JUGADORES</Button>
+            </List.Accordion>
+            {modalPlayer ? <ModalEditPlayer openModal={modalPlayer} closeModal={closeModalPlayer} dataEdit={editPlayer} indexPlayer={indexPlayer} /> : null}
+            {deletePlayer ? <DeletePlayerDialog openDialog={deletePlayer} indexDelete={indexPlayer} closeDialog={closeDeletePlayer} /> : null}
         </>
     )
 }
