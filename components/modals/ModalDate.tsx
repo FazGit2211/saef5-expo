@@ -12,13 +12,11 @@ export default function ModalDate({ show, hideModal }: PropsType) {
         setDate(e.nativeEvent.text);
     }
     return (
-        <>
-            <Portal>
-                <Modal visible={show}>
-                    <TextInput label="Fecha" mode="outlined" value={date} onChange={handleChangeDate}></TextInput>
-                </Modal>
-            </Portal>
-            <Button mode="contained" icon="cross" onPress={hideModal}>Close</Button>
-        </>
+        <Portal>
+            <Modal visible={show}>
+                <TextInput label="Fecha" mode="outlined" value={date} onChange={handleChangeDate}></TextInput>
+                <Button mode="contained" icon="cross" onPress={hideModal}>Close</Button>
+            </Modal>
+        </Portal>
     )
 }

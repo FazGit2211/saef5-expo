@@ -36,12 +36,13 @@ export default function ListPlayer() {
     const handleConfirmBtn = () => {
         router.push("/event/event-new")
     };
+    console.log("Lista del contexto de los player", players);
     return (
         <>
-            <List.Accordion title="Players">
-                {players.map((elem, index) => (<List.Item key={elem.name} title={elem.name} onPress={() => handleSelectEdit(elem, index)} />))}
-                <Button mode="contained" onPress={handleConfirmBtn}>CONFIRMAR JUGADORES</Button>
+            <List.Accordion title="Jugadores">
+                {players.map((elem, index) => (<List.Item key={elem.name} title={elem.name} onPress={() => handleSelectEdit(elem, index)} />))}                
             </List.Accordion>
+            <Button mode="contained" onPress={handleConfirmBtn}>CONFIRMAR JUGADORES</Button>
             {modalPlayer ? <ModalEditPlayer openModal={modalPlayer} closeModal={closeModalPlayer} dataEdit={editPlayer} indexPlayer={indexPlayer} /> : null}
             {deletePlayer ? <DeletePlayerDialog openDialog={deletePlayer} indexDelete={indexPlayer} closeDialog={closeDeletePlayer} /> : null}
         </>

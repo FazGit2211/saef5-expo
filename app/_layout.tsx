@@ -6,14 +6,14 @@ import { PlayerProvider } from "../contexts/PlayerContext";
 import { EventProvider } from "../contexts/EventContext";
 export default function Layout() {
     return (
-        <PaperProvider>
-            <EventProvider>
-                <PlayerProvider>
+        <EventProvider>
+            <PlayerProvider>
+                <PaperProvider>
                     <View className="flex bg-black">
                         <Slot />
                     </View>
-                </PlayerProvider>
-            </EventProvider>
-        </PaperProvider>
+                </PaperProvider>
+            </PlayerProvider>
+        </EventProvider>
     )
 }

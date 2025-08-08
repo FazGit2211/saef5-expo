@@ -13,7 +13,7 @@ export default function PlayerNew() {
     return (
         <>
             <Button mode="contained" onPress={openModalPlayer}>+</Button>
-            {players.length === 0 ? <Text>No hay jugadores agregados </Text> : <ListPlayer />}
+            {players.length > 0 ? <ListPlayer /> : <Text>No hay jugadores agregados </Text>}
             {modalPlayer ? <ModalCreatePlayer openModal={modalPlayer} closeModal={closeModalPlayer} /> : null}
         </>
     );

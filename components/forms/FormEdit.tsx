@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { PlayerType } from "../../contexts/EventContext";
 import useAlert from "../../hooks/useAlert";
 import PlayerContext from "../../contexts/PlayerContext";
-import { Button, TextInput } from "react-native-paper";
+import { Button, HelperText, Text, TextInput } from "react-native-paper";
 import useForm from "../../hooks/useForm";
 
 interface PropsType {
@@ -29,13 +29,14 @@ export default function FormEdit({ playerEdit, indexPlayerEdit }: PropsType) {
 
     return (
         <>
-            <TextInput label="Nombre" mode="outlined" value={form.name} onChange={handleChangeName} onBlur={handleBlurName} error={error.errorValue} /*helperText={error.name} */ />
-            <TextInput label="Apellido" mode="outlined" value={form.surname} onChange={handleChangeSurname} error={error.errorValue} /*helperText={error.surname}*/ />
-            <TextInput label="Telefono" mode="outlined" value={form.phoneNumber.toString()} onChange={handleChangePhoneNumber} error={error.errorValue} /*helperText={error.phoneNumber}*/ />
-            <TextInput label="Email" mode="outlined" value={form.email} onChange={handleChangeEmail} error={error.errorValue} /*helperText={error.email} */ />
-            <TextInput label="Estado" mode="outlined" value={form.state} onChange={handleChangeState} error={error.errorValue} /*helperText={error.state} */ />
+            <TextInput label="Nombre" mode="outlined" value={form.name} onChangeText={handleChangeName} onBlur={handleBlurName} error={error.errorValue} />
+            <HelperText type="error" visible={error.errorValue}>{error.name}</HelperText>
+            <TextInput label="Apellido" mode="outlined" value={form.surname} onChange={handleChangeSurname} error={error.errorValue} />
+            <TextInput label="Telefono" mode="outlined" value={form.phoneNumber.toString()} onChange={handleChangePhoneNumber} error={error.errorValue} />
+            <TextInput label="Email" mode="outlined" value={form.email} onChange={handleChangeEmail} error={error.errorValue} />
+            <TextInput label="Estado" mode="outlined" value={form.state} onChange={handleChangeState} error={error.errorValue} />
             <Button mode="contained" onPress={handleSubmit}>ENVIAR</Button>
-            {/*alert ? <Alert variant="filled" severity="success">Agregado Correctamente</Alert> : null*/}
+            {alert ? <Text>Agregado Correctamente</Text> : null}
         </>
     )
 }
