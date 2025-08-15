@@ -8,7 +8,7 @@ const initialForm = { name: "", surname: "", phoneNumber: 0, email: "", state: "
 
 export default function FormCreate() {
     //Llamar al contexto
-    const { addPlayer, players } = useContext(PlayerContext);
+    const { addPlayer} = useContext(PlayerContext);
     //Llamar al hook personalizado del formulario
     const { form, error, setForm, handleChangeName, handleBlurName, handleChangeSurname, handleChangePhoneNumber, handleChangeEmail } = useForm({ initialForm });
     //Llamr al hook alert
@@ -22,7 +22,6 @@ export default function FormCreate() {
             setForm({ name: "", surname: "", phoneNumber: 0, email: "", state: "" });
         }
     };
-    console.log(players);
 
     return (
         <>

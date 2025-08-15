@@ -4,7 +4,8 @@ import EventContext from "../../contexts/EventContext";
 import PlayerContext from "../../contexts/PlayerContext";
 import { useRouter } from "expo-router";
 import useDialog from "../../hooks/useDialog";
-import { Button, Text } from "react-native-paper";
+import { Button, List, Text } from "react-native-paper";
+import DeleteEventDialog from "../dialogs/DeleteEventDialog";
 
 interface PropsType {
     codigoParams: string | string[] | undefined
@@ -22,11 +23,11 @@ export default function ListDataEvent({ codigoParams }: PropsType) {
     //propiedades e métodos para los dialogos de confirmacion
     const { deleteEvent, openDeleteEvent, closeDeleteEvent } = useDialog();
     //invocación del método useEffect para buscar e obtener el evento
-    useEffect(() => {
+    /*useEffect(() => {
         if (codigoParams !== undefined) {
             getEventByCodigo(codigoParams.toString());
         };
-    }, [url]);
+    }, [url]);*/
 
     //método para cargar datos al contexto
     const addDataContextEvent = () => {
@@ -50,13 +51,13 @@ export default function ListDataEvent({ codigoParams }: PropsType) {
     }
     return (
         <>
-            {/*loading ? <Alert variant="filled" severity="info">Cargando ...</Alert> : null*/}
-            {/*error.errorValue ? <Alert variant="filled" severity="warning">{error.message}</Alert> : null*/}
-            {/*data && data.length > 0 ? (<List>{data.map((elem) => (<ListItem key={elem.codigo}><Typography>Codigo: {elem.codigo} , Fecha: {elem.date} , Estadio : {elem.Stadium.name}</Typography> <Typography>Dirección : {elem.Stadium.address} </Typography></ListItem>))}</List>) : <h3>No hay datos</h3>*/}
+            {loading ? <Text>Cargando ...</Text> : null}
+            {error.errorValue ? <Text>{error.message}</Text> : null}
+            {data && data.length > 0 ? (<List.Accordion title="Evento">{data.map((elem) => (<List.Item key={elem.codigo} title={`Codigo:${elem.codigo} Fecha: ${elem.date} Estadio: ${elem.Stadium.name} Dirección: ${elem.Stadium.address}`}/>))}</List.Accordion>) : <Text>No hay datos</Text>}
             <Text>Participantes</Text>
-            {/*data && data.length > 0 ? <List>{data.map((elem) => (elem.Players.map((player, index) => (<ListItem key={player.name}><People />{player.name} {player.state}</ListItem>))))}</List> : <h3>No hay jugadores</h3>*/}
+            {data && data.length > 0 ? <List.Accordion title="Jugadores">{data.map((elem) => (elem.Players.map((player) => (<List.Item key={player.name} title={`${player.name} ${player.state}`}/>))))}</List.Accordion> : <Text>No hay jugadores</Text>}
             <Button mode="contained" onPress={handleDeleteEvent}>Eliminar</Button>
-            {/*deleteEvent ? <DeleteEventDialog openDialog={deleteEvent} code={codigoParams} closeDialog={closeDeleteEvent} /> : null*/}
+            {deleteEvent ? <DeleteEventDialog openDialog={deleteEvent} code={codigoParams} closeDialog={closeDeleteEvent} /> : null}
             <Button mode="contained" onPress={handleClickRedirect}>Actualizar</Button>
         </>
     )

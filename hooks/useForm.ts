@@ -30,7 +30,7 @@ const useForm = ({ initialForm }: FormType) => {
     };
 
     const handleBlurName = () => {
-        if ((!form.name.trim()) || (!regexName.test(form.name.trim()))) {
+        if ((!regexName.test(form.name.trim())) || (!form.name.trim())) {
             setError({
                 ...error, errorValue: true, name: "El nombre no puede estar vacio"
             })

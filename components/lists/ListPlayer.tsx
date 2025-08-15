@@ -12,7 +12,7 @@ export default function ListPlayer() {
     //propiedades e método para utilizar los modales
     const { modalPlayer, closeModalPlayer, openModalPlayer } = useModal();
     //propiedades e método para utilizar los dialogos de confirmacion
-    const { deletePlayer, openDeletePlayer, closeDeletePlayer } = useDialog();
+    const { deletePlayer, closeDeletePlayer } = useDialog();
     //variables de estados para poder editar e distinguir uno por uno
     const [editPlayer, setEditPlayer] = useState<PlayerType>({ name: "", surname: "", phoneNumber: 0, email: "", state: "" });
     const [indexPlayer, setIndexPlayer] = useState<number>(0);
@@ -27,20 +27,14 @@ export default function ListPlayer() {
         setIndexPlayer(index);
     };
 
-    const handleDeletedItem = (indexDeleted: number) => {
-        openDeletePlayer();
-        setIndexPlayer(indexDeleted);
-    };
-
 
     const handleConfirmBtn = () => {
         router.push("/event/event-new")
     };
-    console.log("Lista del contexto de los player", players);
     return (
         <>
             <List.Accordion title="Jugadores">
-                {players.map((elem, index) => (<List.Item key={elem.name} title={elem.name} onPress={() => handleSelectEdit(elem, index)} />))}                
+                {players.map((elem, index) => (<List.Item key={elem.name} title={elem.name} onPress={() => handleSelectEdit(elem, index)} left={props => <List.Icon icon="delete-circle"/>}/>))}
             </List.Accordion>
             <Button mode="contained" onPress={handleConfirmBtn}>CONFIRMAR JUGADORES</Button>
             {modalPlayer ? <ModalEditPlayer openModal={modalPlayer} closeModal={closeModalPlayer} dataEdit={editPlayer} indexPlayer={indexPlayer} /> : null}

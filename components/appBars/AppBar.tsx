@@ -6,7 +6,8 @@ export default function AppBar() {
     }
     return (
         <Appbar.Header>
-            <Appbar.Action icon="account-user"></Appbar.Action>
+            <Appbar.Action icon="home"></Appbar.Action>
+            <Appbar.Action icon="account"></Appbar.Action>
         </Appbar.Header>
     )
 }

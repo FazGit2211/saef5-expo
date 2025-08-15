@@ -1,7 +1,7 @@
 import { Button, Modal, Portal } from "react-native-paper";
 import FormCreate from "../forms/FormCreate";
 
-interface PropsType {
+export interface PropsType {
     openModal: boolean,
     closeModal: () => void,
 };

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import EventContext, { StadiumType } from "../../contexts/EventContext";
 import useAlert from "../../hooks/useAlert";
-import { Button, Card, TextInput } from "react-native-paper";
+import { Button, Card, Text, TextInput } from "react-native-paper";
 import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 
 export default function CardStadium({ name, address }: StadiumType) {
@@ -24,7 +24,7 @@ export default function CardStadium({ name, address }: StadiumType) {
                 <TextInput label="Nombre" mode="outlined" value={nameUpdate} onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setNameUpdate(e.nativeEvent.text)} />
                 <TextInput label="Dirección" mode="outlined" value={addressUpdate} onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setAddressUpdate(e.nativeEvent.text)} />
                 <Button mode="contained" onPress={handleSaveUpdate}>Guardar</Button>
-                {/*alert ? <Alert variant="filled" severity="success">Agregado Correctamente</Alert> : null*/}
+                {alert ? <Text>Agregado Correctamente</Text> : null}
             </Card>
         </>
     );
