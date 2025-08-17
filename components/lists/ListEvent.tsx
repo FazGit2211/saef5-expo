@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import useApi from "../../hooks/useApi";
+import useApi from "../../hooks/useApiEvent";
 import EventContext from "../../contexts/EventContext";
 import PlayerContext from "../../contexts/PlayerContext";
 import { useRouter } from "expo-router";
@@ -56,9 +56,9 @@ export default function ListDataEvent({ codigoParams }: PropsType) {
             {data && data.length > 0 ? (<List.Accordion title="Evento">{data.map((elem) => (<List.Item key={elem.codigo} title={`Codigo:${elem.codigo} Fecha: ${elem.date} Estadio: ${elem.Stadium.name} Dirección: ${elem.Stadium.address}`}/>))}</List.Accordion>) : <Text>No hay datos</Text>}
             <Text>Participantes</Text>
             {data && data.length > 0 ? <List.Accordion title="Jugadores">{data.map((elem) => (elem.Players.map((player) => (<List.Item key={player.name} title={`${player.name} ${player.state}`}/>))))}</List.Accordion> : <Text>No hay jugadores</Text>}
-            <Button mode="contained" onPress={handleDeleteEvent}>Eliminar</Button>
+            <Button mode="contained" onPress={handleDeleteEvent} icon="delete-circle"><Text>Eliminar</Text></Button>
             {deleteEvent ? <DeleteEventDialog openDialog={deleteEvent} code={codigoParams} closeDialog={closeDeleteEvent} /> : null}
-            <Button mode="contained" onPress={handleClickRedirect}>Actualizar</Button>
+            <Button mode="contained" onPress={handleClickRedirect}><Text>Actualizar</Text></Button>
         </>
     )
 }

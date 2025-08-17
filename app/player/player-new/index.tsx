@@ -17,14 +17,15 @@ export default function PlayerNew() {
         if (status === "granted") {
             const { data } = await Contact.getContactsAsync();
             if (data.length > 0) {
-                addPlayer({ name: data[0].firstName, surname: data[0].lastName, phoneNumber: 0, email: "", state: "" })
+                <Text>jugadores agregados </Text>
+                //addPlayer({ name: data[0].firstName, surname: data[0].lastName, phoneNumber: 0, email: "", state: "" })
             }
         }
     }
     return (
         <>
-            <Button mode="contained" onPress={openModalPlayer}>Nuevo</Button>
-            <Button mode="contained" onPress={handleGetContacts}>Agregar contactos desde el celular</Button>
+            <Button mode="contained" onPress={openModalPlayer} icon="account-plus"><Text>Nuevo</Text></Button>
+            <Button mode="contained" onPress={handleGetContacts}><Text>Agenda de contactos</Text></Button>
             {players.length > 0 ? <ListPlayer /> : <Text>No hay jugadores agregados </Text>}
             {modalPlayer ? <ModalCreatePlayer openModal={modalPlayer} closeModal={closeModalPlayer} /> : null}
         </>

@@ -1,19 +1,14 @@
 import { createContext, ReactNode, useState } from "react"
-
-export interface PlayerType {
-    name: string,
-    surname: string,
-    phoneNumber: number,
-    email: string,
-    state: string
-};
+import { PlayerType } from "./PlayerContext";
 
 export interface StadiumType {
+    idStadium: number
     name: string,
     address: string
 };
 
 export interface EventType {
+    idEvent: number,
     codigo: string,
     date: string,
 };
@@ -33,8 +28,8 @@ interface ProviderType {
 };
 
 const defaultValues: ContextType = {
-    event: { codigo: "", date: "" },
-    stadium: { name: "", address: "" },
+    event: { idEvent: 0, codigo: "", date: "" },
+    stadium: { idStadium: 0, name: "", address: "" },
     players: [],
     addEvent: () => { },
     addStadium: () => { },
@@ -44,8 +39,8 @@ const defaultValues: ContextType = {
 
 const EventContext = createContext(defaultValues);
 const EventProvider = ({ children }: ProviderType) => {
-    const [event, setEvent] = useState<EventType>({ codigo: "", date: "" });
-    const [stadium, setStadium] = useState<StadiumType>({ name: "", address: "" });
+    const [event, setEvent] = useState<EventType>({ idEvent: 0, codigo: "", date: "" });
+    const [stadium, setStadium] = useState<StadiumType>({ idStadium: 0, name: "", address: "" });
     const [players, setPlayers] = useState<PlayerType[]>([]);
 
     const addEvent = (eventData: EventType) => {
@@ -61,8 +56,8 @@ const EventProvider = ({ children }: ProviderType) => {
     };
 
     const removeEvent = () => {
-        setEvent({ codigo: "", date: "" });
-        setStadium({ name: "", address: "" });
+        setEvent({ idEvent: 0, codigo: "", date: "" });
+        setStadium({ idStadium: 0, name: "", address: "" });
         setPlayers([]);
     };
 

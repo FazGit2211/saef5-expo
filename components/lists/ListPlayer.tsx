@@ -1,24 +1,17 @@
 import { useContext, useState } from "react";
-import { PlayerType } from "../../contexts/EventContext";
 import useDialog from "../../hooks/useDialog";
 import useModal from "../../hooks/useModal";
-import PlayerContext from "../../contexts/PlayerContext";
+import PlayerContext, { PlayerType } from "../../contexts/PlayerContext";
 import { useRouter } from "expo-router";
-import { Button, List } from "react-native-paper";
-import DeletePlayerDialog from "../dialogs/DeletePlayerDialog";
+import { Button, List, Text } from "react-native-paper";
 import ModalEditPlayer from "../modals/ModalEditPlayer";
 
 export default function ListPlayer() {
-    //propiedades e método para utilizar los modales
     const { modalPlayer, closeModalPlayer, openModalPlayer } = useModal();
-    //propiedades e método para utilizar los dialogos de confirmacion
     const { deletePlayer, closeDeletePlayer } = useDialog();
-    //variables de estados para poder editar e distinguir uno por uno
-    const [editPlayer, setEditPlayer] = useState<PlayerType>({ name: "", surname: "", phoneNumber: 0, email: "", state: "" });
+    const [editPlayer, setEditPlayer] = useState<PlayerType>({ id: 0, name: "", phoneNumber: 0, email: "", state: "", admin: "" });
     const [indexPlayer, setIndexPlayer] = useState<number>(0);
-    //propiedades e métodos para el contexto
     const { players } = useContext(PlayerContext);
-    //Utilizar la función de expo router para cambiar de pantalla
     const router = useRouter()
 
     const handleSelectEdit = (elem: PlayerType, index: number) => {
@@ -34,11 +27,10 @@ export default function ListPlayer() {
     return (
         <>
             <List.Accordion title="Jugadores">
-                {players.map((elem, index) => (<List.Item key={elem.name} title={elem.name} onPress={() => handleSelectEdit(elem, index)} left={props => <List.Icon icon="delete-circle"/>}/>))}
+                {players.map((elem, index) => (<List.Item key={elem.name} title={elem.name} onPress={() => handleSelectEdit(elem, index)} left={props => <List.Icon icon="delete-circle" />} />))}
             </List.Accordion>
-            <Button mode="contained" onPress={handleConfirmBtn}>CONFIRMAR JUGADORES</Button>
+            <Button mode="contained" onPress={handleConfirmBtn}><Text>Confirmar jugadores</Text></Button>
             {modalPlayer ? <ModalEditPlayer openModal={modalPlayer} closeModal={closeModalPlayer} dataEdit={editPlayer} indexPlayer={indexPlayer} /> : null}
-            {deletePlayer ? <DeletePlayerDialog openDialog={deletePlayer} indexDelete={indexPlayer} closeDialog={closeDeletePlayer} /> : null}
         </>
     )
 }

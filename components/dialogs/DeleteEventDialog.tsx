@@ -1,27 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import useAlert from "../../hooks/useAlert";
 import EventContext from "../../contexts/EventContext";
-import useApi from "../../hooks/useApi";
-import { Dialog } from "react-native-paper";
+import useApi from "../../hooks/useApiEvent";
+import { Button, Dialog, Text } from "react-native-paper";
 
 export interface PropsDialogType {
     openDialog: boolean,
-    code: string | string[] | undefined,
+    idEvent: number,
     closeDialog: () => void
 };
-
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
-export default function DeleteEventDialog({ openDialog, code, closeDialog }: PropsDialogType) {
+export default function DeleteEventDialog({ openDialog, idEvent, closeDialog }: PropsDialogType) {
     //utilizar el hook personalizado para realizar las peticiones a la api
     const url = "http://localhost:5000/api/event";
     const { loading, error, deleteEvent } = useApi(url);
@@ -30,35 +18,24 @@ export default function DeleteEventDialog({ openDialog, code, closeDialog }: Pro
     //utilizar el contexto del evento
     const { removeEvent } = useContext(EventContext);
     const handleDeleted = () => {
-        if (code !== undefined) {
-            deleteEvent(code.toString());
-        }
+        if (idEvent !== undefined) {
+            deleteEvent(idEvent);
+        };
     };
-
-    useEffect(() => {
-        if (!loading && !error.errorValue) {
-            removeEvent();
-            handleShowAlert();
-            handleSetTimeOut();
-            closeDialog();
-        }
-
-    }, [loading]);
-
-
     return (
         <>
-            {/*<Dialog open={openDialog} sx={style}>
-                <DialogTitle>
+            <Dialog visible={openDialog}>
+                <Dialog.Title>
                     Eliminar?
-                </DialogTitle>
-                <DialogActions>
-                    <Button variant="contained" onClick={handleDeleted}><Delete /></Button>
-                    <Button variant="contained" onClick={closeDialog}><Cancel /></Button>
-                    {loading ? <Alert variant="filled" severity="info">Cargando ...</Alert> : null}
-                    {alert ? <Alert variant="filled" severity="success">{error.message}</Alert> : null}
-                </DialogActions>
-            </Dialog>*/}
+                </Dialog.Title>
+                <Dialog.Actions>
+                    <Button mode="contained" onPress={handleDeleted} icon="delete-circle"><Text>Eliminar</Text></Button>
+                    <Button mode="contained" onPress={closeDialog}><Text>Cancelar</Text></Button>
+                    {loading ? <Text>Eliminando...</Text> : null}
+                    {!loading && error.errorValue ? <Text>{error.message}</Text> : null}
+                    {alert && !loading && error.errorValue ? <Text>Eliminado</Text> : null}
+                </Dialog.Actions>
+            </Dialog>
         </>
     );
 }

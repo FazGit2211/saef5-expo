@@ -26,9 +26,9 @@ export default function ModalDate({ openModal, closeModal }: PropsType) {
         <Portal>
             <Modal visible={openModal}>
                 <TextInput label="Fecha" mode="outlined" value={date} onChange={handleChangeDate}></TextInput>
-                <Button mode="contained" onPress={handleSaveDate}>Guardar</Button>
+                <Button mode="contained" onPress={handleSaveDate}><Text>Guardar</Text></Button>
                 {alert ? <Text>Agregado Correctamente</Text> : null}
-                <Button mode="contained" onPress={closeModal}>Cerrar</Button>
+                <Button mode="contained" onPress={closeModal}><Text>Cerrar</Text></Button>
             </Modal>
         </Portal>
     )

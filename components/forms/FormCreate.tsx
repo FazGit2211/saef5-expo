@@ -1,25 +1,22 @@
-import { Button, HelperText, Text, TextInput } from "react-native-paper";
+import { Button, Checkbox, HelperText, Text, TextInput } from "react-native-paper";
 import useAlert from "../../hooks/useAlert";
 import useForm from "../../hooks/useForm";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import PlayerContext from "../../contexts/PlayerContext";
 
-const initialForm = { name: "", surname: "", phoneNumber: 0, email: "", state: "" };
+const initialForm = { id: 0, name: "", surname: "", phoneNumber: 0, email: "", state: "", admin: "" };
 
 export default function FormCreate() {
-    //Llamar al contexto
-    const { addPlayer} = useContext(PlayerContext);
-    //Llamar al hook personalizado del formulario
-    const { form, error, setForm, handleChangeName, handleBlurName, handleChangeSurname, handleChangePhoneNumber, handleChangeEmail } = useForm({ initialForm });
-    //Llamr al hook alert
+    const { addPlayer } = useContext(PlayerContext);
+    const { form, error, setForm, handleChangeName, handleBlurName, handleChangePhoneNumber, handleChangeEmail } = useForm({ initialForm });
     const { alert, handleShowAlert, handleSetTimeOut } = useAlert();
-    //Método para enviar y guardar al contexto
+    const [checked, setChecked] = useState(true);
     const handleSubmit = () => {
         if (!error.errorValue) {
-            addPlayer({ name: form.name, surname: form.surname, phoneNumber: form.phoneNumber, email: form.email, state: "" });
+            addPlayer({ id: 0, name: form.name, phoneNumber: form.phoneNumber, email: form.email, state: "", admin: "" });
             handleShowAlert();
             handleSetTimeOut();
-            setForm({ name: "", surname: "", phoneNumber: 0, email: "", state: "" });
+            setForm({ id: 0, name: "", phoneNumber: 0, email: "", state: "", admin: "" });
         }
     };
 
@@ -27,10 +24,10 @@ export default function FormCreate() {
         <>
             <TextInput label="Nombre" mode="outlined" value={form.name} onChange={handleChangeName} onBlur={handleBlurName} error={error.errorValue}></TextInput>
             <HelperText type="error" visible={error.errorValue}>{error.name}</HelperText>
-            <TextInput label="Apellido (opcional)" mode="outlined" value={form.surname} onChange={handleChangeSurname}></TextInput>
             <TextInput label="Nº teléfono (opcional)" mode="outlined" value={form.phoneNumber.toString()} onChange={handleChangePhoneNumber}></TextInput>
             <TextInput label="Email (opcional)" mode="outlined" value={form.email} onChange={handleChangeEmail}></TextInput>
-            <Button mode="contained" onPress={handleSubmit}>ENVIAR</Button>
+            <Checkbox status={checked ? 'checked' : 'unchecked'} onPress={() => setChecked(!checked)}></Checkbox>
+            <Button mode="contained" onPress={handleSubmit}><Text>Enviar</Text></Button>
             {alert ? <Text>Agregado Correctamente</Text> : null}
         </>
     );

@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { PlayerType, StadiumType } from "../contexts/EventContext";
+import { StadiumType } from "../contexts/EventContext";
+import { PlayerType } from "../contexts/PlayerContext";
 
 interface EventGetType {
+    id: number,
     codigo: string,
     date: string,
     Stadium: StadiumType,
@@ -19,7 +21,7 @@ interface ErrorType {
     message: string
 };
 
-const useDefaulValues: EventGetType[] = [{ codigo: "", date: "", Stadium: { name: "", address: "" }, Players: [{ name: "", surname: "", phoneNumber: 0, email: "", state: "" }] }];
+const useDefaulValues: EventGetType[] = [{ id: 0, codigo: "", date: "", Stadium: { idStadium: 0, name: "", address: "" }, Players: [{ id: 0, name: "", phoneNumber: 0, email: "", state: "", admin: "" }] }];
 const useApi = (url: string) => {
 
     const [data, setData] = useState(useDefaulValues);
@@ -53,7 +55,7 @@ const useApi = (url: string) => {
     const getEventByCodigo = async (codigo: string) => {
         try {
             setLoading(true);
-            const response = await fetch(`${url}/?codigo=${codigo}`);
+            const response = await fetch(`${url}/${codigo}`);
             if (response.ok) {
                 const dataValues: EventGetType[] = await response.json();
                 setData(dataValues);
@@ -68,19 +70,15 @@ const useApi = (url: string) => {
         }
     };
 
-    const putEvent = async (codigoEvent: string, { codigo, date, stadium, players }: EventType) => {
-        const dataValues = {
-            codigo, date, stadium, players
-        };
-
-        const options: RequestInit = {
-            method: "PUT",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(dataValues)
-        };
-
+    const putEvent = async (idEvent: number, { date }: EventType) => {
         try {
-            const response = await fetch(`${url}/?codigo=${codigoEvent}`, options);
+            const dataValues = { date };
+            const options: RequestInit = {
+                method: "PUT",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(dataValues)
+            };
+            const response = await fetch(`${url}/${idEvent}`, options);
             if (response.ok) {
                 setLoading(true);
                 setError({ errorValue: false, message: "Actualizado correctamente." });
@@ -94,7 +92,7 @@ const useApi = (url: string) => {
         }
     };
 
-    const deleteEvent = async (codigo: string) => {
+    const deleteEvent = async (idEvent: number) => {
         const options: RequestInit = {
             method: "DELETE",
             headers: { "content-type": "application/json" },
@@ -102,7 +100,7 @@ const useApi = (url: string) => {
 
         try {
             setLoading(true);
-            const request = await fetch(`${url}/?id=${codigo}`, options);
+            const request = await fetch(`${url}/${idEvent}`, options);
             if (!request.ok) {
                 setError({ errorValue: false, message: "Eliminado correctamente" });
             }

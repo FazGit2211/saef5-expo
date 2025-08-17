@@ -38,8 +38,8 @@ export default function ModalStadium({ openModal, closeModal }: PropsType) {
             <Modal visible={openModal}>
                 <TextInput label="Nombre" mode="outlined" value={form.name} onChange={handleChangeName} />
                 <TextInput label="Direccion" mode="outlined" value={form.address} onChange={handleChangeAddress} />
-                <Button mode="contained" onPress={handleSaveBtn}>Guardar</Button>
-                <Button mode="contained" onPress={closeModal}>Cerrar</Button>
+                <Button mode="contained" onPress={handleSaveBtn}><Text>Guardar</Text></Button>
+                <Button mode="contained" onPress={closeModal}><Text>Cerrar</Text></Button>
                 {sendForm ? <Text>Agregado Correctamente</Text> : null}
             </Modal>
         </Portal>

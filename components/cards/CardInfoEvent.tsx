@@ -3,7 +3,7 @@ import { Button, Card, List, Text, TextInput } from "react-native-paper";
 import EventContext from "../../contexts/EventContext";
 import PlayerContext from "../../contexts/PlayerContext";
 import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
-import useApi from "../../hooks/useApi";
+import useApi from "../../hooks/useApiEvent";
 import useAlert from "../../hooks/useAlert";
 
 export default function CardInfoEvent() {
@@ -20,7 +20,7 @@ export default function CardInfoEvent() {
     //Método para enviar y guardar el evento
     const handleSaveEvent = () => {
         if ((players.length > 0) && (event.date !== "") && (stadium.name) && (codigo !== "")) {
-            postEvent({ codigo: codigo, date: event.date, stadium: stadium, players: players });
+            postEvent({ codigo: event.codigo, date: event.date, stadium: stadium, players: players });
             handleShowAlert();
             handleSetTimeOut();
         };
@@ -31,7 +31,7 @@ export default function CardInfoEvent() {
             {event.date !== "" ? <Text>{event.date}</Text> : <Text>No hay fecha aún seleccionada</Text>}
             {stadium.name !== "" ? <Text>{stadium.name} {stadium.address}</Text> : <Text>No hay estadio aún seleccionado </Text>}
             <TextInput label="Codigo, alías para el evento" mode="outlined" onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setCodigo(e.nativeEvent.text)}></TextInput>
-            <Button mode="contained" onPress={handleSaveEvent}>Confirmar e enviar evento</Button>
+            <Button mode="contained" onPress={handleSaveEvent}><Text>Confirmar e enviar evento</Text></Button>
             {alert && loading ? <Text>Enviando ...</Text> : null}
             {!loading && error.errorValue ? <Text>Error {error.message}</Text> : null}
             {alert && !loading && !error.errorValue ? <Text>Enviado correctamente</Text> : null}

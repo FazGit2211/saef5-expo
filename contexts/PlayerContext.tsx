@@ -1,5 +1,11 @@
 import { createContext, ReactNode, useState } from "react";
-import { PlayerType } from "./EventContext";
+export interface PlayerType {
+    id: number,
+    name: string,
+    email: string,
+    state: string,
+    admin: string
+};
 
 interface ContextType {
     players: PlayerType[],

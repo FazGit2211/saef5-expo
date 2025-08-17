@@ -1,11 +1,10 @@
-import AppBar from "../components/appBars/AppBar";
+import { View } from "react-native";
 import Main from "../components/cards/Main";
 
 export default function Index() {
     return (
-        <>
-            <AppBar />
+        <View >
             <Main />
-        </>
+        </View>
     )
 }

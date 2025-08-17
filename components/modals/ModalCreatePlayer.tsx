@@ -1,4 +1,4 @@
-import { Button, Modal, Portal } from "react-native-paper";
+import { Button, Modal, Portal, Text } from "react-native-paper";
 import FormCreate from "../forms/FormCreate";
 
 export interface PropsType {
@@ -11,7 +11,7 @@ export default function ModalCreatePlayer({ openModal, closeModal }: PropsType) 
         <Portal>
             <Modal visible={openModal}>
                 <FormCreate />
-                <Button mode="contained" onPress={closeModal}>Cerrar</Button>
+                <Button mode="contained" onPress={closeModal}><Text>Cerrar</Text></Button>
             </Modal>
         </Portal>
     )

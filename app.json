@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "saef5-expo",
     "name": "saef5-expo",
     "slug": "saef5-expo",
     "version": "1.0.0",

@@ -1,25 +1,18 @@
 import { useState } from "react";
-import { PlayerType } from "../contexts/EventContext";
 import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
+import { PlayerType } from "../contexts/PlayerContext";
 
 interface ErrorType {
-    errorValue: boolean,
+    errorInfo: boolean,
     name: string,
-    surname: string,
-    phoneNumber: string,
-    email: string;
-    state: string
 }
 
 interface FormType {
     initialForm: PlayerType
 };
 const useForm = ({ initialForm }: FormType) => {
-    //Inicializar form con valores vacios
     const [form, setForm] = useState<PlayerType>(initialForm);
-    //Estado para obtener los errores
-    const [error, setError] = useState<ErrorType>({ errorValue: false, name: "", surname: "", phoneNumber: "", email: "", state: "" });
-    //Expreciones regulares
+    const [errorInfo, setErrorInfo] = useState<ErrorType>({ errorInfo: false, name: "" });
     const regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     const regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
     //Funciones para detectar el ingreso de datos en los inputs
@@ -30,25 +23,13 @@ const useForm = ({ initialForm }: FormType) => {
     };
 
     const handleBlurName = () => {
-        if ((!regexName.test(form.name.trim())) || (!form.name.trim())) {
-            setError({
-                ...error, errorValue: true, name: "El nombre no puede estar vacio"
-            })
+        if (!form.name || !regexName.test(form.name)) {
+            setErrorInfo({
+                ...errorInfo, errorInfo: true, name: "El nombre no puede estar vacio"
+            });
         } else {
-            setError({ ...error, errorValue: false, name: "" })
+            setErrorInfo({ ...errorInfo, errorInfo: false, name: "" })
         };
-    };
-
-    const handleChangeSurname = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-        setForm({
-            ...form, surname: e.nativeEvent.text
-        })
-    };
-
-    const handleChangePhoneNumber = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
-        setForm({
-            ...form, phoneNumber: parseInt(e.nativeEvent.text)
-        })
     };
 
     const handleChangeEmail = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
@@ -61,6 +42,6 @@ const useForm = ({ initialForm }: FormType) => {
         setForm({ ...form, state: e.nativeEvent.text })
     };
 
-    return { form, error, setForm, handleChangeName, handleBlurName, handleChangeSurname, handleChangePhoneNumber, handleChangeEmail, handleChangeState }
+    return { form, errorInfo, setForm, handleChangeName, handleBlurName, handleChangeEmail, handleChangeState }
 }
 export default useForm;

@@ -4,7 +4,6 @@ import ListDataEvent from "../../../components/lists/ListEvent";
 export default function EventFind() {
     //Utilizar el hook uselocal search para,s para obtener el codigo por parámetro
     const { codigo } = useLocalSearchParams();
-    console.log(codigo);
     return (
         <>
             <ListDataEvent codigoParams={codigo} />
