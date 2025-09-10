@@ -9,7 +9,7 @@ import ModalEditPlayer from "../modals/ModalEditPlayer";
 export default function ListPlayer() {
     const { modalPlayer, closeModalPlayer, openModalPlayer } = useModal();
     const { deletePlayer, closeDeletePlayer } = useDialog();
-    const [editPlayer, setEditPlayer] = useState<PlayerType>({ id: 0, name: "", phoneNumber: 0, email: "", state: "", admin: "" });
+    const [editPlayer, setEditPlayer] = useState<PlayerType>({ id: 0, name: "", email: "", state: "", admin: "" });
     const [indexPlayer, setIndexPlayer] = useState<number>(0);
     const { players } = useContext(PlayerContext);
     const router = useRouter()

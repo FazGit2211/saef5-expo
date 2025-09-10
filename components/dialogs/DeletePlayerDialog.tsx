@@ -32,8 +32,8 @@ export default function DeletePlayerDialog({ openDialog, indexDelete, closeDialo
                     <Button mode="contained" onPress={handleDeleted} icon="delete-circle"><Text>Eliminar</Text></Button>
                     <Button mode="contained" onPress={closeDialog}><Text>Cancelar</Text></Button>
                     {loadingPlayer ? <Text>Eliminando...</Text> : null}
-                    {!loadingPlayer && errorPlayer.errorValue ? <Text>{errorPlayer.message}</Text> : null}
-                    {alert && !loadingPlayer && errorPlayer.errorValue ? <Text>Eliminado</Text> : null}
+                    {!loadingPlayer && errorPlayer.errorPlayer ? <Text>{errorPlayer.message}</Text> : null}
+                    {alert && !loadingPlayer && errorPlayer.errorPlayer ? <Text>Eliminado</Text> : null}
                 </Dialog.Actions>
             </Dialog>
         </>

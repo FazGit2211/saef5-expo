@@ -16,7 +16,7 @@ export default function ListDataEvent({ codigoParams }: PropsType) {
     //propiedades del hook personalizado con información del estado de la petición
     const { loading, error, getEventByCodigo, data } = useApi(url);
     //propiedades e método de los contextos
-    const { addEvent, addStadium } = useContext(EventContext);
+    const { addEvent, addStadium,event } = useContext(EventContext);
     const { players } = useContext(PlayerContext);
     //router para re direccionar a otra página
     const router = useRouter();
@@ -32,9 +32,9 @@ export default function ListDataEvent({ codigoParams }: PropsType) {
     //método para cargar datos al contexto
     const addDataContextEvent = () => {
         data.forEach((elem) => {
-            addEvent({ codigo: elem.codigo, date: elem.date });
+            addEvent({ idEvent: elem.id, codigo: elem.codigo, date: elem.date });
             elem.Players.forEach((player) => (players.push(player)));
-            addStadium({ name: elem.Stadium.name, address: elem.Stadium.address });
+            addStadium({ idStadium: elem.Stadium.idStadium, name: elem.Stadium.name, address: elem.Stadium.address });
         });
     }
     //método para re direccionar
@@ -53,11 +53,11 @@ export default function ListDataEvent({ codigoParams }: PropsType) {
         <>
             {loading ? <Text>Cargando ...</Text> : null}
             {error.errorValue ? <Text>{error.message}</Text> : null}
-            {data && data.length > 0 ? (<List.Accordion title="Evento">{data.map((elem) => (<List.Item key={elem.codigo} title={`Codigo:${elem.codigo} Fecha: ${elem.date} Estadio: ${elem.Stadium.name} Dirección: ${elem.Stadium.address}`}/>))}</List.Accordion>) : <Text>No hay datos</Text>}
+            {data && data.length > 0 ? (<List.Accordion title="Evento">{data.map((elem) => (<List.Item key={elem.codigo} title={`Codigo:${elem.codigo} Fecha: ${elem.date} Estadio: ${elem.Stadium.name} Dirección: ${elem.Stadium.address}`} />))}</List.Accordion>) : <Text>No hay datos</Text>}
             <Text>Participantes</Text>
-            {data && data.length > 0 ? <List.Accordion title="Jugadores">{data.map((elem) => (elem.Players.map((player) => (<List.Item key={player.name} title={`${player.name} ${player.state}`}/>))))}</List.Accordion> : <Text>No hay jugadores</Text>}
+            {data && data.length > 0 ? <List.Accordion title="Jugadores">{data.map((elem) => (elem.Players.map((player) => (<List.Item key={player.name} title={`${player.name} ${player.state}`} />))))}</List.Accordion> : <Text>No hay jugadores</Text>}
             <Button mode="contained" onPress={handleDeleteEvent} icon="delete-circle"><Text>Eliminar</Text></Button>
-            {deleteEvent ? <DeleteEventDialog openDialog={deleteEvent} code={codigoParams} closeDialog={closeDeleteEvent} /> : null}
+            {deleteEvent ? <DeleteEventDialog openDialog={deleteEvent} idEvent={event.idEvent} closeDialog={closeDeleteEvent} /> : null}
             <Button mode="contained" onPress={handleClickRedirect}><Text>Actualizar</Text></Button>
         </>
     )

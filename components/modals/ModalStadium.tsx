@@ -8,7 +8,7 @@ export default function ModalStadium({ openModal, closeModal }: PropsType) {
     //Utilizar propiedades e métodos del contexto
     const { stadium, addStadium } = useContext(EventContext);
     //Inicializar form con valores en las props
-    const [form, setForm] = useState<StadiumType>({ name: stadium.name, address: stadium.address });
+    const [form, setForm] = useState<StadiumType>({ idStadium: 0, name: stadium.name, address: stadium.address });
     //Manejar el estado para los alert de mensajes
     const [sendForm, setSendForm] = useState(false);
 
@@ -26,7 +26,7 @@ export default function ModalStadium({ openModal, closeModal }: PropsType) {
 
     const handleSaveBtn = () => {
         addStadium(form);
-        setForm({ name: "", address: "" });
+        setForm({ idStadium: 0, name: "", address: "" });
         setSendForm(true);
         setTimeout(() => {
             setSendForm(false);

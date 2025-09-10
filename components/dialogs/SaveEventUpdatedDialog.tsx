@@ -16,7 +16,7 @@ export default function SaveEventUpdateDialog({ openDialog, idEvent, closeDialog
 
     const handleSave = () => {
         if (idEvent !== undefined) {
-            putEvent(event.id, { codigo: event.codigo, date: event.date, stadium, players });
+            putEvent(event.idEvent, { codigo: event.codigo, date: event.date, stadium, players });
         };
     };
     return (

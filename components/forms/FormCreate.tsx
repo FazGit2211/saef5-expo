@@ -8,23 +8,22 @@ const initialForm = { id: 0, name: "", surname: "", phoneNumber: 0, email: "", s
 
 export default function FormCreate() {
     const { addPlayer } = useContext(PlayerContext);
-    const { form, error, setForm, handleChangeName, handleBlurName, handleChangePhoneNumber, handleChangeEmail } = useForm({ initialForm });
+    const { form,errorInfo ,setForm, handleChangeName, handleBlurName, handleChangeEmail } = useForm({ initialForm });
     const { alert, handleShowAlert, handleSetTimeOut } = useAlert();
     const [checked, setChecked] = useState(true);
     const handleSubmit = () => {
-        if (!error.errorValue) {
-            addPlayer({ id: 0, name: form.name, phoneNumber: form.phoneNumber, email: form.email, state: "", admin: "" });
+        if (!errorInfo.errorInfo) {
+            addPlayer({ id: 0, name: form.name, email: form.email, state: "", admin: "" });
             handleShowAlert();
             handleSetTimeOut();
-            setForm({ id: 0, name: "", phoneNumber: 0, email: "", state: "", admin: "" });
+            setForm({ id: 0, name: "", email: "", state: "", admin: "" });
         }
     };
 
     return (
         <>
-            <TextInput label="Nombre" mode="outlined" value={form.name} onChange={handleChangeName} onBlur={handleBlurName} error={error.errorValue}></TextInput>
-            <HelperText type="error" visible={error.errorValue}>{error.name}</HelperText>
-            <TextInput label="Nº teléfono (opcional)" mode="outlined" value={form.phoneNumber.toString()} onChange={handleChangePhoneNumber}></TextInput>
+            <TextInput label="Nombre" mode="outlined" value={form.name} onChange={handleChangeName} onBlur={handleBlurName} error={errorInfo.errorInfo}></TextInput>
+            <HelperText type="error" visible={errorInfo.errorInfo}>{errorInfo.name}</HelperText>            
             <TextInput label="Email (opcional)" mode="outlined" value={form.email} onChange={handleChangeEmail}></TextInput>
             <Checkbox status={checked ? 'checked' : 'unchecked'} onPress={() => setChecked(!checked)}></Checkbox>
             <Button mode="contained" onPress={handleSubmit}><Text>Enviar</Text></Button>

@@ -45,9 +45,9 @@ export default function EventUpdate() {
                 </Card.Actions>
             </Card>
             {modalPlayerEdit ? <ModalEditPlayerEvent openModal={modalPlayerEdit} closeModal={closeModalPlayerEdit} dataEdit={editPlayer} indexPlayer={indexPlayer} /> : null}
-            {deletePlayer ? <DeletePlayerDialog openDialog={deletePlayer} indexDelete={indexPlayer} closeDialog={closeDeletePlayer} playerDelete={editPlayer} /> : null}
+            {deletePlayer ? <DeletePlayerDialog openDialog={deletePlayer} indexDelete={indexPlayer} closeDialog={closeDeletePlayer} /> : null}
             {modalPlayer ? <ModalAddPlayerEvent openModal={modalPlayer} closeModal={closeModalPlayer} /> : null}
-            {saveEvent ? <SaveEventUpdateDialog openDialog={saveEvent} closeDialog={closeSaveEvent} code={ } /> : null}
+            {saveEvent ? <SaveEventUpdateDialog openDialog={saveEvent} closeDialog={closeSaveEvent} idEvent={event.idEvent} /> : null}
         </>
     )
 }
